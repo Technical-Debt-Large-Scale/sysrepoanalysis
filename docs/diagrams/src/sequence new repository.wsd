@@ -1,0 +1,33 @@
+@startuml
+actor       User as user
+boundary    Dashboad as principal
+boundary    Repository_UI as telaRepositorio
+control     Control.Main as main
+control     Handle_Theads as utilidades
+entity      Repositories  as repositorio
+queue       Queue.Repositories as fila
+database    Database as banco 
+
+user -> principal : select option new
+principal -> main : new repository
+main -> telaRepositorio : show UI 
+telaRepositorio -> main : new repository
+main -> main : new
+main -> main : data validation
+main -> repositorio : check repository
+repositorio -> banco : query repositories
+banco --> repositorio : reply
+repositorio --> main : reply
+main -> main : enqueue repository
+    group Thread Produtor
+    main -> utilidades : fire a thread to \n follow the (Produce)
+    utilidades -> utilidades : create thread to \n enqueue
+    utilidades -> fila : enqueue repository
+    utilidades -> main : go back to main process
+    end
+main -> repositorio : new repository
+repositorio -> banco : save repository
+banco --> repositorio : reply
+repositorio --> main : reply
+main --> principal : repository saved
+@enduml

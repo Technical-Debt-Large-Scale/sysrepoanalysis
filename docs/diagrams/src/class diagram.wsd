@@ -1,0 +1,117 @@
+@startuml
+title Class Diagram RepositoryAnalysis
+
+package msr <<Folder>> {
+  class init
+}
+
+package control <<Folder>> {
+  class main
+  class authentication
+}
+
+package hendler <<Folder>> {
+  class hendler_threads
+  class hendler_files
+}
+
+package dao <<Folder>> {
+  class user
+  class repository
+  class users
+  class repositories
+  class commits
+  class releases
+}
+
+package orm <<Folder>> {
+  class db
+}
+
+package database <<Database>> {
+  class msr
+}
+
+package messages <<Folder>> {
+  class message_adapter
+}
+
+package views <<Views>> {
+  package repository <<Folder>> {
+    class "repository" as repository_ui
+    class "details" as details_ui
+    class "analysis" as analysis_ui
+  }
+
+  package user <<Folder>>{
+    class dashboard
+    class profile
+  }
+
+  package authenticate <<Folder>> {
+    class login
+    class register
+  }
+  
+  class principal
+}
+
+package analyse <<Folder>>{
+    class analysis_commit
+    class analysis_release
+    interface analysis_adapter
+}
+
+package tools <<Folder>>{
+  class msr_tool_adapter
+  class atd_tool_adapter
+  class pydriller
+}
+
+package atd <<Folder>>{
+  class atd_extractor
+  class atd_indicators
+  class architectural_smells
+  class architectural_anti_patterns  
+}
+
+init --> main
+init --> authentication
+
+analysis_ui --> main
+details_ui --> main
+repository_ui --> main
+login --> authentication 
+register --> authentication
+profile --> authentication
+dashboard --> authentication
+
+main --> repositories
+main --> users
+main --> releases
+main --> commits
+releases --> commits
+main --> hendler_threads
+main --> message_adapter
+
+hendler_threads --> hendler_files
+hendler_threads --> analysis_adapter
+analysis_adapter --> analysis_release
+analysis_adapter --> analysis_commit
+hendler_threads --> atd_extractor
+atd_extractor --> atd_indicators
+atd_indicators --> architectural_smells
+atd_indicators --> architectural_anti_patterns
+atd_extractor --> atd_tool_adapter
+
+analysis_release --> msr_tool_adapter
+analysis_commit --> msr_tool_adapter
+msr_tool_adapter --> pydriller
+
+users --> db
+repositories --> db
+releases --> db
+commits --> db
+db --> msr
+
+@enduml

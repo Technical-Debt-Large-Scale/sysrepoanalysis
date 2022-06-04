@@ -1,0 +1,50 @@
+@startuml
+actor       User as user
+boundary    Principal as principal
+control     Control.Main as main
+control     Handler_Threads as utilidades
+entity      Repositories  as repositorio
+queue       Queue.Repositories as filarepositorios
+queue       Queue.Dictionaries as filadicionarios
+database    Database as banco 
+collections  FileSystem as arquivo
+
+user -> principal : Select analyse
+principal -> main : Analyse repository \n (Background processing)
+main -> main : check repository \n to analyse
+main -> main : Consumer of repositories
+    group Thread Consumer Repositories
+    main -> utilidades : fire a thread to \n to follow repositories
+    utilidades -> utilidades : create a thread to consume \n items from queue.repositories
+    utilidades -> filarepositorios : consume a repository \n from queue.repositories
+        group Thread Analysis
+            utilidades -> utilidades : create a new thread to \n analyse repository
+            utilidades -> utilidades : generate a dictionary with details \n about analysis of repository
+            group Thread Produtor Dicionario(s)
+                main -> utilidades : fire a thread to \n follow the repositories
+                utilidades -> utilidades : create a thread to \n enqueue dictionaries
+                utilidades -> filadicionarios : enqueue dictionaries
+                utilidades -> utilidades : go back to normal process 
+            end
+        end
+        group Thread Access Data Base
+            utilidades -> utilidades : cria nova thread para \n atualizar status \n do(s) repositorio(s) no banco
+            utilidades -> repositorio : atualiza status \n do(s) repositorio(s)
+            repositorio -> banco : salva o(s) repositorio(s)
+            banco --> repositorio : resposta
+            repositorio --> utilidades : resposta
+        end 
+        group Thread Consumer Dictionaries
+            utilidades -> utilidades : processing of queue dictionaries 
+            utilidades --> filadicionarios : consume item from queue dictionaries
+            group Thread Salva Dicionario em Arquivo JSON
+                utilidades -> utilidades : create a new thread to \n salve file of details about analysis
+                utilidades -> arquivo : save JSON file
+                arquivo --> utilidades : reply
+            end             
+            utilidades -> utilidades : go back to normal process
+        end
+        utilidades -> main : go back to main process
+    end
+main --> principal : analysed repositories
+@enduml

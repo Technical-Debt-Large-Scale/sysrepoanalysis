@@ -1,0 +1,33 @@
+@startuml Repository Analysis Architecture
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/html5.puml
+!include DEVICONS/python.puml
+!include DEVICONS/mysql.puml
+!include DEVICONS/github.puml
+!include FONTAWESOME/users.puml
+
+Person(user, "User")
+Container(web_client, "Browser", "html", "The main interface that the customer interacts with", $sprite="html5") 
+
+System_Boundary(c1, "Repository Analysis System") {    
+    Container(web_app, "Web Application", "Python, Flask", "Allows users to analysis git repositories", $sprite="python")
+    ContainerDb(db, "Database", "MySQL", "Holds repositories and analysis information", $sprite="mysql")
+    Container(archive, "Archive", "File Analysis Results")
+}
+System_Ext(mail_system, "E-mail system")
+System(github, "Github", $sprite="github")
+
+Rel_Down(user, web_client, "Uses")
+Rel_Down(web_client, web_app, "Uses", "https")
+Rel_R(web_app,db, "Reads/Writes")
+Rel_Down(web_app, github, "Get repository", "https")
+Rel_L(web_app, archive, "Writes", "files")
+Rel_L(web_app, mail_system, "Create e-mail")
+Rel_Up(mail_system, user, "Send e-mail")
+
+SHOW_LEGEND()
+
+@enduml
