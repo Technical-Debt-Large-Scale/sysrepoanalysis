@@ -153,3 +153,7 @@ python3 consumer_treemap_analyzer.py
 
 http://localhost:5000
 
+# More details
+
+[Wiki](https://github.com/Technical-Debt-Large-Scale/sysrepoanalysis/wiki)
+
