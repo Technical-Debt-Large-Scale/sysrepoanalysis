@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}
+Resultado da Análise do Repositório
+{% endblock %}
+
+{% block content %}
+
+<div>
+  <table class="table table-hover table">
+      <tr> 
+        <th scope="col">Name</th>
+        <th scope="col">Link</th>
+        <th scope="col">Created</th>
+        <th scope="col">Analysed</th>
+        <th scope="col">Status</th>
+      </tr>
+            <tr role="row">
+            <td> {{ my_name }} </td>
+            <td >{{ my_link }}</td> 
+            <td> {{ my_creation_date.strftime('%d-%m-%Y %H:%M:%S') }} </td> 
+            <td> {{ my_analysis_date.strftime('%d-%m-%Y %H:%M:%S') }} </td>
+            <td >{{ status_repositorio(my_status) }} </td>
+    </table>
+</div>
+    <div class="root" style="height: 100vh;"></div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/treemap.bundle.js') }}"></script>
+    <script type="text/javascript">
+      fetch('{{ url_for("static", filename=my_relative_path_file_name) }}')
+      .then((res)=> {
+        return res.text();
+      })
+      .then((data) => {
+        const heatmapMetric = 'FC';
+        treemap.render(data, document.querySelector('.root'), heatmapMetric);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    </script>  
+    
+        
+{% endblock %}

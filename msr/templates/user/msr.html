@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}
+  MSR Page
+{% endblock %}
+
+{% block content %}
+      <table class="table table-hover table">
+        <thead>
+            <tr>
+                <!-- Your Columns HERE -->
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Created</th>
+                <th scope="col">Analysed</th>
+                <th scope="col">Status</th>
+                <th scope="col">Commits</th>
+                <th scope="col">Metrics</th>
+                <th scope="col">Critical</th>
+                <th scope="col">Treemap</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Your rows inside the table HERE: -->
+            {% for repository in repositories %}
+                <tr>
+                    <td>{{ repository.id }}</td>
+                    <td><a href="{{repository.link}}">{{ repository.name }}</a></td>
+                    <td>{{ repository.creation_date.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+                    {% if repository.analysis_date is not none: %}
+                    <td>{{ repository.analysis_date.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+                    {% else %}
+                    <td></td>
+                    {% endif%}
+                    <td>{{ status_repositorio(repository.analysed) }}</td>
+                    {% if repository.analysed == 2: %}
+                    <td>
+                      <a href="{{ url_for('visualizar_analise_repositorio', id=repository.id) }}">Details...</a> | 
+                      <a href="{{ url_for('baixar_commits_repositorio', id=repository.id, details='export')}}">All Commits</a> | 
+                      <a href="{{ url_for('baixar_commits_repositorio', id=repository.id, details='files')}}">All Files </a>
+                    </td>
+                    <td>
+                      <a href="{{ url_for('visualizar_metricas_repositorio', id=repository.id, metric='complexity')}}">CC</a> | 
+                      <a href="{{ url_for('visualizar_metricas_repositorio', id=repository.id, metric='frequency')}}"> FC </a>| 
+                      <a href="{{ url_for('visualizar_metricas_repositorio', id=repository.id, metric='loc_changes')}}"> MLOC </a>|
+                      <a href="{{ url_for('visualizar_metricas_repositorio', id=repository.id, metric='composition')}}"> Composition </a>                          
+                    </td>
+                    <td>
+                      <a href="{{ url_for('show_report_repositorio', id=repository.id)}}">Report</a> 
+                    </td>
+                    {% else %}
+                    <td>Not Available Yet</td>
+                    {% endif %}
+                    {% if repository.analysed == 2: %}
+                    <td>
+                      <a href="{{ url_for('visualizar_treemap_repositorio', id=repository.id, metric='complexity') }}">CC</a> | 
+                      <a href="{{ url_for('visualizar_treemap_repositorio', id=repository.id, metric='frequency') }}">FC</a> |
+                      <a href="{{ url_for('visualizar_treemap_repositorio', id=repository.id, metric='loc_changes') }}">MLOC</a> |
+                      <a href="{{ url_for('visualizar_treemap_repositorio', id=repository.id, metric='composition') }}">Composition</a>
+                    </td>
+                    {% else %}
+                    <td>Not Available Yet</td>
+                    {% endif %}
+                    <td>Edit | Delete</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+  Repository Page
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" class="form-repository" >
+    {{ form.hidden_tag() }}
+    <h1 class="h3 mb-3 font-weight-normal">
+        New Reporitory
+    </h1>
+    <br>
+    {{ form.name.label() }}
+    {{ form.name(class="form-control", placeholder="Reporitory Name") }}
+
+    {{ form.link.label() }}
+    {{ form.link(class="form-control", placeholder="Repository Link") }}
+
+    <br>
+    {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+    <br>
+</form>
+
+{% endblock %}

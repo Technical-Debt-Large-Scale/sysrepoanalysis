@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+Criar Repositórios
+{% endblock %}
+
+{% block content %}
+
+<form role="form" action="{{ url_for('criar_em_cadeia')}}" method="post">
+    <label for="nome">List of repositories, for instance: URL1, URL2, ...</label>
+    <input type="text" class="form-control" id="nome" name="repositorios" value="https://github.com/armandossrecife/restapi.git,https://github.com/armandossrecife/sysweb.git,https://github.com/armandossrecife/spoon-example.git" placeholder="lista de repositórios seperados por virgula...">
+    <button type="submit" onclick="document.getElementById('my_loading').style.display = 'block' ;">Enqueue repositories to analyze</button>
+  </form>
+
+  <div id="my_loading" style="display: none">
+    <h3>Loading...</h3>
+  </div>
+
+{% endblock %}

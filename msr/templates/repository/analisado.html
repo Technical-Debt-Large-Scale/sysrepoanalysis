@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+Resultado da Análise do Repositório
+{% endblock %}
+
+{% block content %}
+
+<table class="table table-hover table">
+    <tr> 
+      <th scope="col">Name</th>
+      <th scope="col">Link</th>
+      <th scope="col">Created</th>
+      <th scope="col">Analysed</th>
+      <th scope="col">Status</th>
+    </tr>
+          <tr role="row">
+          <td> {{ my_name }} </td>
+          <td >{{ my_link }}</td> 
+          <td> {{ my_creation_date.strftime('%d-%m-%Y %H:%M:%S') }} </td> 
+          <td> {{ my_analysis_date.strftime('%d-%m-%Y %H:%M:%S') }} </td>
+          <td >{{ status_repositorio(my_status) }} </td>
+    </table>
+    <a href="{{ url_for('download_file_details', id=my_id) }}">Download</a>
+    <div class="root"></div>
+  
+    <script type="text/javascript" src="{{ url_for('static', filename='jsonview.bundle.js') }}"></script>
+    <script type="text/javascript">
+      fetch('{{ my_relative_path_file_name }}')
+      .then((res)=> {
+        return res.text();
+      })
+      .then((data) => {
+        const tree = JsonView.createTree(data);
+        JsonView.render(tree, document.querySelector('.root'));
+        JsonView.expandChildren(tree);
+      })
+    </script>
+    
+{% endblock %}

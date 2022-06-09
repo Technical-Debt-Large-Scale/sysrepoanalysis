@@ -1,0 +1,11 @@
+PyDriller
+WTForms
+Flask-WTF
+Flask-Login
+Flask-Bcrypt
+Flask-SQLAlchemy
+email_validator
+bcrypt==3.1.3
+pika
+tqdm
+pandas
