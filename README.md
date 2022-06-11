@@ -97,7 +97,7 @@ More details at [CLI Flask](https://flask.palletsprojects.com/en/2.0.x/cli/)
 Run the application via CLI:
 ```bash
 # Shell 1
-flask run
+flask run --host=0.0.0.0 --port=5000
 ```
 
 ### 3.1 Running Producers and Consumers
