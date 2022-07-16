@@ -12,11 +12,7 @@ for handler in logging.root.handlers[:]:
     logging.root.removeHandler(handler)
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
-                datefmt='%d/%m/%Y %H:%M:%S', filename='logs/my_app_consumidor_gera_json.log', filemode='w')
-
-#user_id = 1
-#nome_repositorio1 = "promocityteste"
-#url_repositorio1 = "https://github.com/myplayareas/promocityteste.git"
+                datefmt='%d/%m/%Y %H:%M:%S', filename='logs/my_app_consumidor_scatter_plo.log', filemode='w')
 
 repositoriesCollection = Repositories()
 rabbitmq_broker_host = 'localhost'
