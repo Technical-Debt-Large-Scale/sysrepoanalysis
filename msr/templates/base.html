@@ -33,6 +33,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('repository_page') }}">New Repository</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about_page') }}">About</a>
+                </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -41,12 +44,23 @@
                         {{ current_user.prettier_budget }}
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link">Welcome, {{ current_user.username }}</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardropalertas" data-toggle="dropdown">
+                        <i class="fas fa-bell"><span class="badge rounded-pill badge-notification bg-danger">{{ number_of_user_repositories_saved() }}</span></i>
+                    </a>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">Alertas</a>
+                      </div>  
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout_page') }}">Logout</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardropprofile" data-toggle="dropdown">Welcome, {{ current_user.username }}</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="{{ url_for('logout_page') }}">Logout</a>
+                    </div>                    
                 </li>
+                <img src="{{ url_for('static', filename='img/anonymous2.png') }}" class="rounded-circle" style="width: 50px;" alt="Avatar">
             </ul>
           {% else %}
             <ul class="navbar-nav">

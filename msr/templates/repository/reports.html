@@ -26,82 +26,142 @@ Resultado da Análise do Repositório
 <div class="container-fluid">
       <div class="row">
         <div class="col"> 
-          <h4>Relation between Modified LOCs and Files Occurrence in Commits</h4>
-          <img src="{{ my_path_scatter_plot }}" alt="Scatter plot">
+          <div class="card">
+            <div class="card-header">
+              Relation between Modified LOCs and Files Occurrence in Commits
+            </div>
+            <div class="card-body">
+              <img src="{{ my_path_scatter_plot }}" alt="Scatter plot">
+            </div>
+          </div>
         </div>
         <div class="col">
-          <h4>Top 20 probably critical files</h4>
-          <h5>Based on Frequence in Commits x Modified LOCs</h5>
-          <table class="table table-hover table">
-            {% for table in tables4 %}
-              {{titles4[loop.index]}}
-              {{ table|safe }}
-            {% endfor %}
-          </table>
+          <div class="card">
+            <div class="card-header">
+              Top 20 probably critical files
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Based on Frequence in Commits x Modified LOCs</h5>
+              <!-- Conteudo -->
+              <table class="table table-hover table">
+                {% for table in tables4 %}
+                {{titles4[loop.index]}}
+                {{ table|safe }}
+                {% endfor %}
+              </table>
+            </div>
+          </div>
         </div>       
       </div>
 
     <div class="row">
       <div class="col">
-        <h4>Boxsplot File Frequence in Commits</h4>
-        <img src="{{ my_path_box_plot1 }}" alt="Boxplot 1">
+        <div class="card">
+          <div class="card-header">
+            <!-- Conteudo do cabecalho do card-->
+            Boxsplot File Frequence in Commits
+          </div>
+          <div class="card-body">
+            <!-- Conteudo do corpo do card-->
+            <img src="{{ my_path_box_plot1 }}" alt="Boxplot 1">    
+          </div>
+        </div>
       </div>
       <div class="col">
-        <h4>Boxsplot Modified LOCs</h4>
-        <img src="{{ my_path_box_plot2 }}" alt="Boxplot 2">
+        <div class="card">
+          <div class="card-header">
+            <!-- Conteudo do cabecalho do card-->
+            Boxsplot Modified LOCs
+          </div>
+          <div class="card-body">
+            <!-- Conteudo do corpo do card-->
+            <img src="{{ my_path_box_plot2 }}" alt="Boxplot 2">    
+          </div>
+        </div>
       </div>
-      <div class="col">
-        <h4>Quartiles of Files Frequency in Commits and Modified LOCs</h4>
-        <table class="table table-hover table">
-          {% for table in tables3 %}
-            {{titles3[loop.index]}}
-            {{ table|safe }}
-          {% endfor %}
-        </table>
-      </div>     
     </div> 
  
-  
   <div class="row">
       <div class="col">
-        <h4>Summary of all possible critical files</h4>
-        <table class="table table-hover table">
-          {% for table in tables2 %}
-            {{titles2[loop.index]}}
-            {{ table|safe }}
-          {% endfor %}
-        </table>
-        <p>
-          qaj	- Total of Java Files in Repository <br>
-          qac	- Total of Possible Critical Files in Repository <br>
-          laaj - Total of Modified LOCs by All Java Files <br>
-          laac - Total of Modified LOCs by Possible Critical Files <br>
-          pac	- Percentage of Critial Files in Repository <br>
-          plaac - Percentage of Modified LOCs by Critical Files in Repository <br>
-        </p>
+        <div class="card">
+          <div class="card-header">
+            <!-- Conteudo do cabecalho do card-->
+            Quartiles of Files Frequency in Commits and Modified LOCs
+          </div>
+          <div class="card-body">
+            <!-- Conteudo do corpo do card-->
+            <table class="table table-hover table">
+              {% for table in tables3 %}
+                {{titles3[loop.index]}}
+                {{ table|safe }}
+              {% endfor %}
+            </table>    
+          </div>
+        </div>
+      </div>     
+
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <!-- Conteudo do cabecalho do card-->
+            Summary of all possible critical files
+          </div>
+          <div class="card-body">
+            <!-- Conteudo do corpo do card-->
+            <table class="table table-hover table">
+              {% for table in tables2 %}
+                {{titles2[loop.index]}}
+                {{ table|safe }}
+              {% endfor %}
+            </table>
+                <p>
+                  qaj - Total of Java Files in Repository <br>
+                  qac - Total of Possible Critical Files in Repository <br>
+                  laaj - Total of Modified LOCs by All Java Files <br>
+                  laac - Total of Modified LOCs by Possible Critical Files <br>
+                  pac - Percentage of Critial Files in Repository <br>
+                  plaac - Percentage of Modified LOCs by Critical Files in Repository <br>
+                </p>
+          </div>
+        </div>
       </div>
   </div>
 
-
   <div class="row">
     <div class="col">
-      <h4>List of All Possible Critical Java Files</h4>        
-      <a href="{{ url_for('download_file', id=my_id, filename=my_critical_files) }}">Download</a>      
-      <table class="table table-hover table">
-        {% for table in tables %}
-          {{titles[loop.index]}}
-          {{ table|safe }}
-        {% endfor %}
-      </table>
+      <div class="card">
+        <div class="card-header">
+          <!-- Conteudo do cabecalho do card-->
+          List of All Possible Critical Java Files
+        </div>
+        <div class="card-body">
+          <!-- Conteudo do corpo do card-->       
+          <a href="{{ url_for('download_file', id=my_id, filename=my_critical_files) }}">Download</a>      
+          <table class="table table-hover table">
+            {% for table in tables %}
+              {{titles[loop.index]}}
+              {{ table|safe }}
+            {% endfor %}
+          </table>
+        </div>
+      </div>
     </div>   
     <div class="col">
-      <h4>List of Possible Critical Java Files (Test files were removed)</h4>
-      <table class="table table-hover table">
-        {% for table in tables_no_test %}
-          {{titles_no_test[loop.index]}}
-          {{ table|safe }}
-        {% endfor %}
-      </table>
+      <div class="card">
+        <div class="card-header">
+          <!-- Conteudo do cabecalho do card-->
+          List of Possible Critical Java Files (Test files were removed)
+        </div>
+        <div class="card-body">
+          <!-- Conteudo do corpo do card-->
+          <table class="table table-hover table">
+            {% for table in tables_no_test %}
+              {{titles_no_test[loop.index]}}
+              {{ table|safe }}
+            {% endfor %}
+          </table>    
+        </div>
+      </div>
     </div>   
   </div>
 

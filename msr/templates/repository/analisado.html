@@ -20,20 +20,30 @@ Resultado da Análise do Repositório
           <td> {{ my_analysis_date.strftime('%d-%m-%Y %H:%M:%S') }} </td>
           <td >{{ status_repositorio(my_status) }} </td>
     </table>
-    <a href="{{ url_for('download_file_details', id=my_id) }}">Download</a>
-    <div class="root"></div>
-  
-    <script type="text/javascript" src="{{ url_for('static', filename='jsonview.bundle.js') }}"></script>
-    <script type="text/javascript">
-      fetch('{{ my_relative_path_file_name }}')
-      .then((res)=> {
-        return res.text();
-      })
-      .then((data) => {
-        const tree = JsonView.createTree(data);
-        JsonView.render(tree, document.querySelector('.root'));
-        JsonView.expandChildren(tree);
-      })
-    </script>
+
+  <div class="card">
+    <div class="card-header">
+      <!-- Conteudo do cabecalho do card-->
+      Tree with all details for each commit
+    </div>
+    <div class="card-body">
+      <!-- Conteudo do corpo do card-->
+      <a href="{{ url_for('download_file_details', id=my_id) }}">Download JSON</a>
+      <div class="root"></div>
     
+      <script type="text/javascript" src="{{ url_for('static', filename='jsonview.bundle.js') }}"></script>
+      <script type="text/javascript">
+        fetch('{{ my_relative_path_file_name }}')
+        .then((res)=> {
+          return res.text();
+        })
+        .then((data) => {
+          const tree = JsonView.createTree(data);
+          JsonView.render(tree, document.querySelector('.root'));
+          JsonView.expandChildren(tree);
+        })
+      </script>
+
+    </div>
+  </div>    
 {% endblock %}

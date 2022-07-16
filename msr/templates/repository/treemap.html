@@ -21,6 +21,8 @@ Resultado da Análise do Repositório
             <td> {{ my_analysis_date.strftime('%d-%m-%Y %H:%M:%S') }} </td>
             <td >{{ status_repositorio(my_status) }} </td>
     </table>
+    <br> 
+    <a href="{{ url_for('full_treemap_page', id=id, metric=metric) }}">Metric: {{ metric }}</a>
 </div>
     <div class="root" style="height: 100vh;"></div>
     <script type="text/javascript" src="{{ url_for('static', filename='js/treemap.bundle.js') }}"></script>
@@ -30,8 +32,19 @@ Resultado da Análise do Repositório
         return res.text();
       })
       .then((data) => {
-        const heatmapMetric = 'FC';
-        treemap.render(data, document.querySelector('.root'), heatmapMetric);
+        var metric="{{ metric }}"
+        if (metric == 'complexity'){
+          treemap.render(data, document.querySelector('.root'), "CC");
+        }
+        if (metric == 'frequency'){
+          treemap.render(data, document.querySelector('.root'), "FoC");
+        }
+        if (metric == 'loc_changes'){
+          treemap.render(data, document.querySelector('.root'), "AMLOC");
+        }
+        if (metric == 'composition'){
+          treemap.render(data, document.querySelector('.root'), "Comp");
+        }                        
       })
       .catch((err) => {
         console.log(err);

@@ -154,7 +154,7 @@ def visualizar_treemap_repositorio(id, metric):
     relative_path = 'repositories' + '/' + str(current_user.get_id()) + '/' + name + '/' + metric.upper() + '.json'
     return render_template("repository/treemap.html", my_link=link, my_name=name, my_creation_date=creation_date,
                                 my_analysis_date=analysis_date, my_status=status,
-                                my_relative_path_file_name=relative_path)
+                                my_relative_path_file_name=relative_path, metric=metric, id=id)
 
 @app.route("/repository/<int:id>/metrics/<metric>")
 @login_required
@@ -297,4 +297,28 @@ def download_file(id, filename):
     path_filename = path_metrics + filename
     return send_file(path_filename, as_attachment=True)
 
- 
+@app.route('/about')
+@login_required
+def about_page():
+    return render_template('user/about.html')
+
+@app.route('/repository/<int:id>/fulltreemap/<metric>')
+@login_required
+def full_treemap_page(id, metric):
+    repositorio = repositoriesCollection.query_repository_by_id(id)
+    name = repositorio.name
+    relative_path = 'repositories' + '/' + str(current_user.get_id()) + '/' + name + '/' + metric.upper() + '.json'
+
+    return render_template('repository/full_treemap.html', my_relative_path_file_name=relative_path, metric=metric)
+
+@app.context_processor
+def utility_processor2():
+    def number_of_user_repositories_saved():
+        valor = 0
+        try: 
+            valor = len(repositoriesCollection.query_repositories_by_user_id(current_user.get_id()) )
+        except Exception as e:
+            print(f'Error on number_of_user_repositories_saved: {e}')
+        return valor
+    return dict(number_of_user_repositories_saved=number_of_user_repositories_saved)
+
