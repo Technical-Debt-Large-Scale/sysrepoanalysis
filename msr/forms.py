@@ -27,6 +27,6 @@ class LoginForm(FlaskForm):
     submit = SubmitField(label='Sign in')
 
 class RepositoryForm(FlaskForm):
-    name = StringField(label='Repository Name:', validators=[Length(min=2, max=30), DataRequired()])
+    name = StringField(label='Repository Name:')
     link = StringField(label='Repository Link:', validators=[Length(min=2, max=500), DataRequired()])
     submit = SubmitField(label='New')

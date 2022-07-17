@@ -51,6 +51,7 @@
                     {% else %}
                     <td>Not Available Yet</td>
                     {% endif %}
+
                     {% if repository.analysed == 2: %}
                     <td>
                       <a href="{{ url_for('visualizar_treemap_repositorio', id=repository.id, metric='complexity') }}">CC</a> | 
@@ -58,10 +59,13 @@
                       <a href="{{ url_for('visualizar_treemap_repositorio', id=repository.id, metric='loc_changes') }}">MLOC</a> |
                       <a href="{{ url_for('visualizar_treemap_repositorio', id=repository.id, metric='composition') }}">Composition</a>
                     </td>
+                    <td>Edit | Delete</td>
                     {% else %}
                     <td>Not Available Yet</td>
+                    <td>Not Available</td>
+                    <td>Not Available</td>
+                    <td>Not Available</td>
                     {% endif %}
-                    <td>Edit | Delete</td>
                 </tr>
             {% endfor %}
         </tbody>
