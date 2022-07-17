@@ -105,6 +105,7 @@ def enfilera_pedido_msg_com_json_metrica(canal, fila, usuario, repositorio, stat
     conteudo = 'user=' + usuario + '#' + 'repository=' + repositorio + '#' + 'status=' + status + '#' + 'metrica=' + metrica + '#' + 'resultado=' + resultado
     canal.basic_publish(exchange='', routing_key=fila, body=conteudo)
 
+# So funciona para https://.../x.git
 def pega_nome_repositorio(url):
     lista = []
     try: 
@@ -118,6 +119,19 @@ def pega_nome_repositorio(url):
         print(f'Error parser body - {e}')
         logging.error("Exception occurred", exc_info=True)
     return lista[0]
+
+# Funciona tanto para https://.../x quanto para https://.../x.git
+def get_repo_name(url_github):
+  # Faz o split usando /
+  split_repo = url_github.split('/')
+  # Remove o segundo elemento ('')
+  split_repo.pop(1)
+  # Pega o último elemento da lista
+  last_item_repo = split_repo[-1]
+  if '.git' in last_item_repo: 
+    last_item_repo = last_item_repo.split('.git')
+    last_item_repo = last_item_repo[0]
+  return last_item_repo
 
 def craete_dict_commits(nome_repositorio, all_commits):
     dict_commits = {}
