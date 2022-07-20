@@ -1,0 +1,92 @@
+@startuml
+skinparam actorStyle awesome
+
+' Actor definition
+actor Admin
+actor User
+
+' Usecase definition
+' Autorization/Authenticatio
+usecase (Register) as uc_register
+usecase (Login) as uc_login
+usecase (Password Recovery) as uc_email_recover
+usecase (Logout) as uc_logout
+usecase (Dashboard) as uc_dashboard
+' Users
+usecase (Manage User) as uc_manage_users
+usecase (List Users) as uc_list_users
+usecase (Edit User) as uc_edit_users
+usecase (Delete User) as uc_delete_users
+usecase (Select User) as uc_select_user
+usecase (View User) as uc_view_user
+usecase (My Profile) as uc_my_profile
+' Repositories
+usecase (Manage Repositories) as uc_manage_repositories
+usecase (List All \nRepositories) as uc_list_all_repositories
+usecase (List My \nRepositories) as uc_list_my_repositories
+usecase (Select Repository) as uc_select_repository
+usecase (Delete Repository) as uc_delete_repository
+usecase (Insert Repository) as uc_insert_repository
+usecase (Metrics) as uc_metrics
+usecase (Cyclomartic Complexity) as uc_cyclomatic_complexity
+usecase (Files Occurrence in Commits) as uc_files_occurrence_commits
+usecase (Modified LOCs in File) as uc_modified_loc_file
+usecase (Composition) as uc_composition
+usecase (Critical Files) as uc_critical_files
+usecase (Commits) as uc_commits
+usecase (All Commits) as uc_all_commits
+usecase (All Files) as uc_all_files
+usecase (Treemaps) as uc_treemaps
+usecase (Treemap CC) as uc_treemaps_cc
+usecase (Treemap FOC) as uc_treemaps_foc
+usecase (Treemap AMLOC) as uc_treemaps_amloc
+usecase (Treemap Composition) as uc_treemaps_composition
+
+' Operations (Actions)
+usecase (Clone Repository) as uc_clone_repository
+usecase (Analyze Repository) as uc_analyze_repository
+usecase (Calculate Metrics) as uc_calculate_metrics
+usecase (Analyze Critical Files) as uc_analyze_critical_files
+usecase (Generate Treemap) as uc_generate_treemap
+
+Admin --> uc_manage_users
+uc_manage_users --> uc_list_users
+uc_list_users --> uc_select_user
+uc_select_user --> uc_view_user
+uc_select_user --> uc_edit_users
+uc_select_user --> uc_delete_users
+
+Admin --> uc_manage_repositories
+uc_insert_repository <-- uc_manage_repositories
+uc_manage_repositories --> uc_list_all_repositories
+uc_list_all_repositories --> uc_select_repository
+uc_select_repository -> uc_delete_repository
+uc_select_repository --> uc_metrics
+uc_metrics --> uc_cyclomatic_complexity
+uc_metrics --> uc_files_occurrence_commits
+uc_metrics --> uc_modified_loc_file
+uc_metrics --> uc_composition
+uc_select_repository --> uc_critical_files
+uc_select_repository --> uc_commits
+uc_commits --> uc_all_commits
+uc_commits --> uc_all_files
+uc_select_repository --> uc_treemaps
+
+User --> uc_register
+User --> uc_login
+User -> uc_email_recover
+uc_login --> uc_dashboard
+uc_dashboard -> uc_my_profile
+uc_dashboard --> uc_logout
+uc_dashboard --> uc_list_my_repositories
+uc_list_my_repositories --> uc_select_repository
+uc_dashboard --> uc_insert_repository
+uc_insert_repository --> uc_clone_repository
+uc_clone_repository --> uc_analyze_repository
+uc_analyze_repository --> uc_calculate_metrics
+uc_analyze_repository --> uc_analyze_critical_files
+uc_analyze_repository --> uc_generate_treemap
+uc_treemaps --> uc_treemaps_cc
+uc_treemaps --> uc_treemaps_foc
+uc_treemaps --> uc_treemaps_amloc
+uc_treemaps --> uc_treemaps_composition
