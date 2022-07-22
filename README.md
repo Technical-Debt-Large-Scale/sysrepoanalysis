@@ -159,3 +159,5 @@ http://localhost:5000
 
 [Wiki](https://github.com/Technical-Debt-Large-Scale/sysrepoanalysis/wiki)
 
+[On-line sample](https://armandossrecife.github.io/kafka-treemap/)
+
