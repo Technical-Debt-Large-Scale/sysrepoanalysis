@@ -16,6 +16,7 @@ try:
     if CREATE_DB_EMPTY:
         db.drop_all()
         db.create_all()
+        db.session.commit()
         print(f'Data base {data_base} created with success!!')
     else:
         print(f'Data base {data_base} load successfully!')
