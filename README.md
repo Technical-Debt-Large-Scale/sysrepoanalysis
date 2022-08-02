@@ -117,7 +117,7 @@ Activate virtual environment
 source venv/bin/activate
 ```
 ```
-python3 consumer_clona_repository.py
+python3 consumidor_clona_repositorio.py
 ```
 
 (Server1) - Consumer of the queue_status_banco and producer of the queue_analyse_commits - updates the DB and requests analysis from the repository - (consumer and producer)
@@ -128,7 +128,7 @@ Activate virtual environment
 source venv/bin/activate
 ```
 ```
-python3 consumer_update_status_database.py
+python3 consumidor_atualiza_status_banco.py
 ```
 
 (Server1) - Consumer of the queue_analyze_commits and producer of the queue_operacoes_arquivos_local - analyzes the commits of the repository and requests to generate JSON - (consumer and producer)
@@ -139,7 +139,7 @@ Activate virtual environment
 source venv/bin/activate
 ```
 ```
-python3 consumer_analyses_commits.py
+python3 consumidor_analisa_commits.py
 ```
 
 (Server1) - Consumer of queue_local_files - Generates the JSON file with the results of the analysis of the repository.
@@ -150,7 +150,7 @@ Activate virtual environment
 source venv/bin/activate
 ```
 ```
-python3 consumer_gera_json.py
+python3 consumidor_gera_json.py
 ```
 
 (Server1) - Consumer of the queue_analyse_metrics - Calculates the repository metrics and generates .csv files of the results.
@@ -161,7 +161,7 @@ Activate virtual environment
 source venv/bin/activate
 ```
 ```
-python3 consumer_analyses_metrics.py
+python3 consumidor_analisa_metricas.py
 ```
 
 (Server1) - Consumer of the queue_scatter_plot - Calculates the special metrics of the repository and generates the boxplot and scatter plot images of the "critical" files
@@ -172,7 +172,7 @@ Activate virtual environment
 source venv/bin/activate
 ```
 ```
-python3 consumer_scatter_plot.py
+python3 consumidor_scatter_plot.py
 ```
 
 (Server1) - The "agent" (consumer) [repository parser for treemap] parses (consumes from parser_queue ) the repository and corresponding json files.
@@ -183,7 +183,7 @@ Activate virtual environment
 source venv/bin/activate
 ```
 ```
-python3 consumer_treemap_analyzer.py
+python3 consumidor_treemap_analisador.py
 ```
 
 ### 3.2 Calling the web application
