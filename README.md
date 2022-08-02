@@ -110,72 +110,79 @@ running in main.py
 ```
 
 (Server1) - Consumer of queue_repositorio_local and producer of queue_status_banco - clones and requests DB update - (consumer and producer)
+
 Activate virtual environment
 ```bash
+# shell 2
 source venv/bin/activate
 ```
 ```
-# shell 2
 python3 consumer_clona_repository.py
 ```
 
 (Server1) - Consumer of the queue_status_banco and producer of the queue_analyse_commits - updates the DB and requests analysis from the repository - (consumer and producer)
+
 Activate virtual environment
 ```bash
+# shell 3
 source venv/bin/activate
 ```
 ```
-# shell 3
 python3 consumer_update_status_database.py
 ```
 
 (Server1) - Consumer of the queue_analyze_commits and producer of the queue_operacoes_arquivos_local - analyzes the commits of the repository and requests to generate JSON - (consumer and producer)
+
 Activate virtual environment
 ```bash
+# Shell 4
 source venv/bin/activate
 ```
 ```
-# Shell 4
 python3 consumer_analyses_commits.py
 ```
 
 (Server1) - Consumer of queue_local_files - Generates the JSON file with the results of the analysis of the repository.
+
 Activate virtual environment
 ```bash
+# Shell 5
 source venv/bin/activate
 ```
 ```
-# Shell 5
 python3 consumer_gera_json.py
 ```
 
 (Server1) - Consumer of the queue_analyse_metrics - Calculates the repository metrics and generates .csv files of the results.
+
 Activate virtual environment
 ```bash
+# Shell 6
 source venv/bin/activate
 ```
 ```
-# Shell 6
 python3 consumer_analyses_metrics.py
 ```
 
 (Server1) - Consumer of the queue_scatter_plot - Calculates the special metrics of the repository and generates the boxplot and scatter plot images of the "critical" files
+
 Activate virtual environment
 ```bash
+# Shell 7
 source venv/bin/activate
 ```
 ```
-# Shell 7
 python3 consumer_scatter_plot.py
 ```
 
 (Server1) - The "agent" (consumer) [repository parser for treemap] parses (consumes from parser_queue ) the repository and corresponding json files.
+
 Activate virtual environment
 ```bash
+# Shell 8
 source venv/bin/activate
 ```
 ```
-# Shell 8
 python3 consumer_treemap_analyzer.py
 ```
 
