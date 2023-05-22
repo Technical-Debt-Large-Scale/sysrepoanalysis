@@ -6,7 +6,7 @@ SysRepoAnalysis is an open-source, multi-user web tool that allows online analys
 
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/myplayareas/sysrepository/blob/master/LICENSE)
 
-# Technolgoies
+# Technologies
 
 Linux, Python, Flask, Pandas, SQlite, RabbitMQ, Docker
 
