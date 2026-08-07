@@ -200,6 +200,8 @@ http://localhost:5000
 
 [On-line sample](https://armandossrecife.github.io/kafka-treemap/)
 
+There is available a refactored version in [sysrepoanalysis2](https://github.com/armandossrecife/sysrepoanalysis2)
+
 # Paper
 
 [SysRepoAnalysis](https://dl.acm.org/doi/abs/10.1145/3555228.3555281)
